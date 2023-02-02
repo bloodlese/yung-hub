@@ -3,12 +3,17 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHept
 local Window = Library.CreateLib("YUNG HUB | SL2 | UNRELEASED", "Synapse")
 
 --TABS
-local Player = Window:NewTab("🎮 | Player")
 local Main = Window:NewTab("📂 | Main")
+local Player = Window:NewTab("🎮 | Player")
 local Combat = Window:NewTab("🔪 | Combat")
+local Strategic = Window:NewTab("⚔ | Strategic")
 local Other = Window:NewTab("✨ | Other")
 local Fun = Window:NewTab("👑 | Fun")
+local Teleports = Window:NewTab("🔮 | Teleports")
 local Creditss = Window:NewTab("🔨 | Credits")
+
+
+
 
 --SECTIONS
 local FE = Fun:NewSection("FE")
@@ -20,6 +25,8 @@ local Combat = Combat:NewSection("Comabat")
 local Main = Main:NewSection("Main")
 local StupidShit = Other:NewSection("Random")
 local Credits = Creditss:NewSection("Main Scripter | Aqua")
+local MainStuff = Strategic:NewSection("Main Stuff")
+local Shops = Teleports:NewSection("Shops")
 
 Credits:NewButton("YUNG HUB Discord Server", "Dizzy", function()
 	setclipboard("https://discord.gg/vMSPnKtEtB")
@@ -48,6 +55,68 @@ Utilities:NewSlider("JumpPower", "Jump Higher", 3, 70, function(s) -- 60 (MaxVal
 end)
 
 -- BUTTONS
+Main:NewButton("Fly Bypass", "Fly", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/WspNas/fk7/main/README.md"))()
+end
+)
+
+Main:NewButton("Vehicle Fly", "Fly", function()
+	local plr = game:GetService("Players").LocalPlayer
+	local pos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+	local roundedPos = math.round(pos.X) .. ", " .. math.round(pos.Y) .. ", " .. math.round(pos.Z)
+
+	function bypass()
+		if game.Players.LocalPlayer.Character.Humanoid.Sit ~= true then
+			rconsoleclear()
+			rconsolewarn("Please be seated in any vehicle to inititate Bypass. \n - You can also sit in the passenger seat!")
+		end
+
+		if game.Players.LocalPlayer.Character.Humanoid.Sit ~= false then
+			workspace[plr.Name .. "'s Car"]:MoveTo(roundedPos)
+			workspace[plr.Name .. "'s Car"].DriveSeat:Sit(plr.Character.Humanoid)
+		end
+	end
+
+	bypass()
+	rconsoleclear()
+	rconsolewarn("Successful! \n -If anything bugs out after you stop flying type '/respawn'")
+end
+)
+
+Main:NewButton("WalkSpeed Bypass (40)", "faster", function()
+	local plr = game.Players.LocalPlayer
+	local char = plr.Character
+
+	char.Humanoid.WalkSpeed = 40
+end
+)
+
+Main:NewButton("Remove Karma Alert", "Remove The Alert", function()
+	while true do
+		wait(1)
+		game.ReplicatedStorage.KarmaAlert:Destroy()
+	end
+end
+)
+
+Main:NewButton("Remove Damage Blood", "Remove The Blood", function()
+	wait(1)
+	game.Players.LocalPlayer.PlayerGui.Dmg:Destroy()
+end
+)
+
+
+
+
+Main:NewButton("Infinite Skittles", "inf skits", function()
+	while wait() do
+		game:GetService("Players").LocalPlayer.PlayerGui.Run.Value.Value = true
+		game.Players.LocalPlayer.Character.Resistance.Value = true
+		game:GetService("Workspace").LocalPlayer.Resistance = true
+	end
+end
+)
+
 GameImprovement:NewButton("Full-Bright", "Brightens Up The Game", function()
 	local Light = game:GetService("Lighting")
 
@@ -65,40 +134,47 @@ end)
 
 Combat:NewButton("Hit-box", "Make Heads Bigger!, thanks solar hub", function()
 	local size = 5
-local transparency = 0.7
-local material = 'Neon'
-local brickcolor = 'Really blue'
-getgenv(l).disabled = false
+	local transparency = 0.7
+	local material = 'Neon'
+	local brickcolor = 'Really blue'
+	getgenv(l).disabled = false
 
 
-repeat task.wait(5)
-    for i, v in pairs(game.Players:GetPlayers()) do
-        local character = v.Character
-        if character and v.Name ~= game.Players.LocalPlayer.Name then
-            character.Head.Size = Vector3.new(size,size,size)
-            character.Head.Transparency = transparency
-            character.Head.Material = material
-            character.Head.BrickColor = BrickColor.new(brickcolor)
-            character.Head.CanCollide = false
-        end
-    end
-until getgenv(l).disabled == true
+	repeat task.wait(5)
+		for i, v in pairs(game.Players:GetPlayers()) do
+			local character = v.Character
+			if character and v.Name ~= game.Players.LocalPlayer.Name then
+				character.Head.Size = Vector3.new(size,size,size)
+				character.Head.Transparency = transparency
+				character.Head.Material = material
+				character.Head.BrickColor = BrickColor.new(brickcolor)
+				character.Head.CanCollide = false
+			end
+		end
+	until getgenv(l).disabled == true
 	print("Clicked")
 end)
 
 Main:NewButton("Auto-Pickup", "Pickup All Dropped Guns", function()
-	local LP = game.Players.LocalPlayer
-	while game.RunService.Heartbeat:Wait() do
-		local success, err = pcall(function()
-			for i,v in pairs(workspace:GetChildren()) do
-				if v:IsA("Tool") and v.Name ~= "Unusual Arrow" and v.Name ~= "Rokakaka" and v.Name ~= "Frog" and v.Name ~= "Jotaro Hat" and v.Name ~= "Unbelievable Arrow"then
-					firetouchinterest(LP.Character.HumanoidRootPart,v.Handle,0)
+	local g = game.Workspace.tools
+	while task.wait() do
+		for fk, fl in pairs((g:GetChildren())) do
+			if fl:IsA("Tool") then
+				if fl:IsA("Tool") and fl.Name == "Phone" or fl.Name == "Crate" then
+				else
+					game:GetService("Players").LocalPlayer.Character.Humanoid:EquipTool(fl)
+
 				end
 			end
-		end)
+		end
 	end
-	print("Clicked")
-end)
+end
+)
+
+Main:NewButton("Anti Combat Log", "no fine pls", function()
+	game:GetService("Players").LocalPlayer.PlayerGui.Stats.CLog:Destroy()
+end
+)
 
 Main:NewButton("Chat-Spy", "See all messages!", function()
 	--chat "/spy" to toggle!
@@ -167,40 +243,46 @@ Main:NewButton("Chat-Spy", "See all messages!", function()
 	print("Clicked")
 end)
 
-Combat:NewButton("Infinite-Ammo", "Infinite Ammo", function()
-	while task.wait() do
-for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-    if v:IsA("Tool") then
-    if v:FindFirstChild("Stats") then
-        v.Stats.ClipSize.Value = 6969
-        v.Stats.ClipSize.Original.Value = 6969
-    end
-    end
-end
-end
-	print("Clicked")
-end)
-
 Combat:NewButton("ESP", "See All Players", function()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/fatesc/fates-esp/main/main.lua'))()
-	print("Clicked")
-end)
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/WspNas/fwfveef/main/README.md"))()
+end
+)
 
 Main:NewButton("Anti-Ragdoll", "Stop falling over!", function()
-	game:GetService("Players").LocalPlayer.PlayerGui.SETRAGDOLL.Disabled = true
+	game:GetService("ReplicatedStorage").Modules.RagdollHandler:Destroy()
+	game.ReplicatedStorage.RemoteEvents.SetPlayerRagdolled:Destroy()
+	game.Workspace.Ragdoller:Destroy()
+
+	while task.wait(1) do 
+		if game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled") then
+			game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled"):Destroy()
+		end 
+	end
+end
+)
+	
+
+Main:NewButton("Remove Traffic Sounds", "Removes Traffic Sounds", function()
+	game:GetService("SoundService")["Traffic City Noises"]:Destroy()
 	print("Clicked")
 end)
 
 
 Main:NewButton("Infinite Stamina", "Never Run Out Of Stamina", function()
-	game:GetService("Players").LocalPlayer.Valuestats.Stamina.Value = 100000000000
-	print("Clicked")
-end)
+	while true do 
+		wait(0)
+		game.Players.LocalPlayer.Valuestats.Stamina.Value = 100
+	end   
+end
+)
 
 Main:NewButton("Infinite Hunger", "Never Run Out Of Hunger", function()
-	game:GetService("Players").LocalPlayer.Valuestats.Hunger.Value = 100000000000
-	print("Clicked")
-end)
+	while true do 
+		wait(0)
+		game.Players.LocalPlayer.Valuestats.Hunger.Value = 100
+	end  
+end
+)
 
 Main:NewButton("Anti Camera-Bob", "No Bobbing", function()
 	game:GetService("Players").LocalPlayer.PlayerGui.Camera_Bob.Disabled = true
@@ -212,94 +294,6 @@ FE:NewButton("Fake Cash", "Never Run Out Of Cash! (FAKE)", function()
 	print("Clicked")
 end)
 
-Combat:NewButton("Aimbot", "Never Miss A Shot", function()
-	local dwCamera = workspace.CurrentCamera
-	local dwRunService = game:GetService("RunService")
-	local dwUIS = game:GetService("UserInputService")
-	local dwEntities = game:GetService("Players")
-	local dwLocalPlayer = dwEntities.LocalPlayer
-	local dwMouse = dwLocalPlayer:GetMouse()
-
-	local settings = {
-		Aimbot = true,
-		Aiming = false,
-		Aimbot_AimPart = "Head",
-		Aimbot_TeamCheck = false,
-		Aimbot_Draw_FOV = true,
-		Aimbot_FOV_Radius = 50,
-		Aimbot_FOV_Color = Color3.fromRGB(255,255,255)
-	}
-
-	local fovcircle = Drawing.new("Circle")
-	fovcircle.Visible = settings.Aimbot_Draw_FOV
-	fovcircle.Radius = settings.Aimbot_FOV_Radius
-	fovcircle.Color = settings.Aimbot_FOV_Color
-	fovcircle.Thickness = 1
-	fovcircle.Filled = false
-	fovcircle.Transparency = 1
-
-	fovcircle.Position = Vector2.new(dwCamera.ViewportSize.X / 2, dwCamera.ViewportSize.Y / 2)
-
-	dwUIS.InputBegan:Connect(function(i)
-		if i.UserInputType == Enum.UserInputType.MouseButton2 then
-			settings.Aiming = true
-		end
-	end)
-
-	dwUIS.InputEnded:Connect(function(i)
-		if i.UserInputType == Enum.UserInputType.MouseButton2 then
-			settings.Aiming = false
-		end
-	end)
-
-	dwRunService.RenderStepped:Connect(function()
-
-		local dist = math.huge
-		local closest_char = nil
-
-		if settings.Aiming then
-
-			for i,v in next, dwEntities:GetChildren() do 
-
-				if v ~= dwLocalPlayer and
-					v.Character and
-					v.Character:FindFirstChild("HumanoidRootPart") and
-					v.Character:FindFirstChild("Humanoid") and
-					v.Character:FindFirstChild("Humanoid").Health > 0 then
-
-					if settings.Aimbot_TeamCheck == true and
-						v.Team ~= dwLocalPlayer.Team or
-						settings.Aimbot_TeamCheck == false then
-
-						local char = v.Character
-						local char_part_pos, is_onscreen = dwCamera:WorldToViewportPoint(char[settings.Aimbot_AimPart].Position)
-
-						if is_onscreen then
-
-							local mag = (Vector2.new(dwMouse.X, dwMouse.Y) - Vector2.new(char_part_pos.X, char_part_pos.Y)).Magnitude
-
-							if mag < dist and mag < settings.Aimbot_FOV_Radius then
-
-								dist = mag
-								closest_char = char
-
-							end
-						end
-					end
-				end
-			end
-
-			if closest_char ~= nil and
-				closest_char:FindFirstChild("HumanoidRootPart") and
-				closest_char:FindFirstChild("Humanoid") and
-				closest_char:FindFirstChild("Humanoid").Health > 0 then
-
-				dwCamera.CFrame = CFrame.new(dwCamera.CFrame.Position, closest_char[settings.Aimbot_AimPart].Position)
-			end
-		end
-	end)	
-	print("Clicked")
-end)
 
 GameImprovement:NewButton("Anti-Lag", "Removes Lag", function()
 	local decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20.
@@ -343,49 +337,50 @@ GameImprovement:NewButton("Anti-Lag", "Removes Lag", function()
 end)
 
 FE:NewButton("No Head", "Removes your head", function()
-	-- services
-	local players = game:GetService("Players")
-	local starterGui = game:GetService("StarterGui")
-	-- objects
-	local player = players.LocalPlayer
-	local character = player.Character
-	local humanoid = character:FindFirstChildWhichIsA("Humanoid")
-	local head, torso = character:FindFirstChild("Head"), character:FindFirstChild("UpperTorso")
-	local resetBindable = Instance.new("BindableEvent")
-	-- variables
-	local destroyFunc, resetBindableConnection = character.Destroy, nil
-	-- main
-	-- initializes the permadeath
-	player.Character = nil
-	player.Character = character
-	task.wait(players.RespawnTime + .05)
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/WspNas/fdqqqqq/main/README.md"))()
+end
+)
 
-	humanoid.BreakJointsOnDeath = false
-	humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
-	if humanoid.RigType == Enum.HumanoidRigType.R15 then
-		task.defer(destroyFunc, (head.Neck))
+FE:NewButton("No Legs", "Removes your legs", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/WspNas/eqqqqq/main/README.md"))()  
+end
+)
+
+FE:NewButton("No Arms", "Removes your Arms", function()
+		game:GetService("Players").LocalPlayer.Character.RightUpperArm:Destroy()
+		game:GetService("Players").LocalPlayer.Character.RightLowerArm:Destroy()
+		game:GetService("Players").LocalPlayer.Character.LeftUpperArm:Destroy()
+		game:GetService("Players").LocalPlayer.Character.LeftLowerArm:Destroy()
 	end
-	task.defer(destroyFunc, head) -- and we destroy the head
+)
 
-	resetBindableConnection = resetBindable.Event:Connect(function()
-		starterGui:SetCore("ResetButtonCallback", true)
-		resetBindableConnection:Disconnect()
+FE:NewButton("Fire Hands", "Puts Fire On your Hands", function()
+		Fire.Parent = game.Players.LocalPlayer.Character.RightHand
+	Fire.Heat = 5
+	Fire.Size = 2
+end
+)
 
-		if player.Character == character then
-			character:Destroy()
-			local daModel = Instance.new("Model")
-			local _daModelHumanoid = Instance.new("Humanoid")
-			_daModelHumanoid.Parent = daModel
-			player.Character = daModel
+FE:NewButton("Call Everyone", "Call Everyone", function()
+	local function callAll( )
+		for i,v in pairs(Players:GetPlayers( )) do
+			if v ~= LocalPlayer then
 
-			task.delay(players.RespawnTime, destroyFunc, daModel)
-		else
-			player.Character:BreakJoints()
-		end
-	end)
-	starterGui:SetCore("ResetButtonCallback", resetBindable)
-	print("Clicked")
-end)
+				local args = {
+					[1] = v,
+					[2] = "Starting"
+				};        
+
+				game:GetService("ReplicatedStorage").Call:FireServer(unpack(args));
+
+				print("called " .. v.Name);
+			end;
+		end;
+	end;
+	callAll()
+end
+)
+
 
 AdminCommands:NewButton("Infinite Yield", "FE ADMIN", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
@@ -556,9 +551,14 @@ Main:NewButton("Anti-Fling", "fuck off hackers", function()
 end)
 
 FE:NewButton("No Face", "Removes Your face", function()
-	game.Players.LocalPlayer.Valuestats.face:Destroy()
-	print("Clicked")
-end)
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/WspNas/wqqqq/main/README.md"))()
+end
+)
+
+FE:NewButton("No Name", "Removes Your face", function()
+	oadstring(game:HttpGet("https://raw.githubusercontent.com/WspNas/wwdghjhgfds/main/README.md"))()
+end
+)
 
 Main:NewButton("Infinite Car Gas", "Gas", function()
 	game:GetService("Players").LocalPlayer.Valuestats.CarGas.Value = 100000000000
@@ -576,7 +576,7 @@ Main:NewButton("Remove Weather", "Remove Weather", function()
 end)
 
 Main:NewButton("Infinite Karma", "karma", function()
-	game:GetService("Players").LocalPlayer.Valuestats.Karma.Value = 100000000000
+	game:GetService("Players").BL00DLESE.Valuestats.Karma:Destroy()
 	print("Clicked")
 end)
 
@@ -600,37 +600,15 @@ FE:NewButton("Naked", "Makes You Naked", function()
 	print("Clicked")
 end)
 
-Combat:NewButton("Melee Kill Aura", "Melee Kill Aura", function()
-	--// Setting \\--
-	local range = 22
+GameImprovement:NewButton("Anti-Blur", "See All.", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/WspNas/sdfe3/main/README.md"))()
+end
+)
 
-	--// Variable \\--
-	local player = game:GetService("Players").LocalPlayer
-
-	--// Script \\--
-	game:GetService("RunService").RenderStepped:Connect(function()
-		local p = game.Players:GetPlayers()
-		for i = 2, #p do local v = p[i].Character
-			if v and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") and player:DistanceFromCharacter(v.HumanoidRootPart.Position) <= range then
-				local tool = player.Character and player.Character:FindFirstChildOfClass("Tool")
-				if tool and tool:FindFirstChild("Handle") then
-					tool:Activate()
-					for i,v in next, v:GetChildren() do
-						if v:IsA("BasePart") then
-							firetouchinterest(tool.Handle,v,0)
-							firetouchinterest(tool.Handle,v,1)
-						end
-					end
-				end
-			end
-		end
-	end)
-	print("Clicked")
-end)
-
-GameImprovement:NewButton("Insane Graphics", "Enhances Graphics", function()
-	print("Clicked")
-end)
+GameImprovement:NewButton("Anti-AFK", "Never Be Kicked For Idleness", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/WspNas/dfefefe/main/README.md"))()
+end
+)
 
 Combat:NewButton("Noclip (v)", "Walk Through Walls", function()
 	local StealthMode = true 
@@ -686,17 +664,164 @@ Combat:NewButton("Noclip (v)", "Walk Through Walls", function()
 	print("Clicked")
 end)
 
-Animations:NewButton("Krystal Dance", "Do The Krystal Dance", function()
-	loadstring(game:HttpGet('https://gist.githubusercontent.com/1BlueCat/e51327540d1ba5ede244c459dbdb5a0e/raw/6320fe344ac51a311ef7c9f8d5c3924b1a7c3969/Krystal%2520Dance'))()
-	print("Clicked")
-end)
-
 Animations:NewButton("Tons Of Animations", "Dance", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/Dvrknvss/UniversalFEScriptHub/main/Script'))()
 	print("Clicked")
 end)
 
-AdminCommands:NewButton("Reviz Admin", "reviz what a guy", function()
-	loadstring(game:HttpGet(('https://pastebin.com/raw/pyzjWNhk'),true))()
+-- strat
+MainStuff:NewButton("HitBox v2", "More effective", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/WspNas/dedefe/main/README.md"))()
+end
+)
+
+MainStuff:NewButton("Infinite-Clips", "Infinite Clips", function()
+	while task.wait() do
+		for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			if v:IsA("Tool") then
+				if v:FindFirstChild("Stats") then
+					v.Stats.ClipSize.Value = 6969
+					v.Stats.ClipSize.Original.Value = 6969
+				end
+			end
+		end
+	end
 	print("Clicked")
 end)
+
+MainStuff:NewButton("One Tap", "1 Tap", function()
+	local meleeRemote = game:GetService("ReplicatedStorage").GunRemotes.Impact;
+	local OldNameCall = nil
+	OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
+		local Args = {...}
+		local NamecallMethod = getnamecallmethod()
+
+		if not checkcaller() and Self == meleeRemote and NamecallMethod == "FireServer" then
+			for i=1, 15, 1 do
+				OldNameCall(Self,...);
+			end        
+		end
+
+		return OldNameCall(Self, ...)
+	end)
+end
+)
+
+MainStuff:NewButton("Infinite-Ammo", "Infinite Ammo", function()
+	while task.wait() do
+		for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			if v:IsA("Tool") then
+				if v:FindFirstChild("Stats") then
+					v.Stats.MaxAmmo.Value = 6969
+					v.Stats.MaxAmmo.Original.Value = 6969
+				end
+			end
+		end
+	end
+	print("Clicked")
+end)
+
+MainStuff:NewButton("Monkey Hub Inf-Ammo", "Infinite Ammo", function()
+	for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do 
+		if v:IsA("Tool") and v:FindFirstChild("Stats") then
+			task.spawn(function()
+				while task.wait(5) do
+					if v.Stats.ClipSize.Value ~= v.Stats.ClipSize.Original.Value then
+						v.Stats.ClipSize.Value = math.huge
+						v.Stats.ClipSize.Original.Value = math.huge
+					end
+				end
+			end)
+		end
+	end 
+end
+)
+
+Main:NewButton("Remove Typing GUI", "Removes Typing GUI", function()
+	game:GetService("ReplicatedStorage").Typing2:Destroy()
+	print("Clicked")
+end)
+
+FE:NewButton("Very Loud Sound", "Abuses Car Sounds", function()
+	local args = {
+		[1] = workspace:FindFirstChild(game.Players.LocalPlayer.Name .. "'s Car")
+	}
+
+	game:GetService("ReplicatedStorage").TireSmoke:FireServer(unpack(args))
+
+	local args = {
+		[1] = game.Workspace[game.Players.LocalPlayer.Name .. "'s Car"],
+		[2] = 1000,
+		[3] = 1000,
+		[4] = false,
+		[5] = 1000,
+		[6] = 1000,
+		[7] = 0,
+		[8] = 1000,
+		[9] = false
+	}
+
+	game:GetService("ReplicatedStorage").CarSound:FireServer(unpack(args))
+end
+)
+
+Shops:NewButton("Sports Shop (JOB)", "TP", function()
+	local plr = game.Players.LocalPlayer
+	local workspace = game.Workspace
+	plr.Character.HumanoidRootPart.CFrame = CFrame.new(-195.589691, -463.662384, 92.2535934, 0.238895774, 2.38148239e-08, 0.971045196, 3.21983293e-08, 1, -3.24463443e-08, -0.971045196, 3.90173298e-08, 0.238895774)
+	game:GetService("Workspace")[plr.Name.."'s Car"]:MoveTo(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+	task.wait()
+	game:GetService("Workspace")[plr.Name.."'s Car"].DriveSeat:sit(plr.Character.Humanoid)
+	task.wait()
+	game:GetService("ReplicatedStorage").DoorService:FireServer("HOP",workspace:FindFirstChild(plr.Name .. "'s Car"))
+end
+)
+
+Shops:NewButton("Urban (JOB)", "TP", function()
+	local plr = game.Players.LocalPlayer
+	local workspace = game.Workspace
+	plr.Character.HumanoidRootPart.CFrame = CFrame.new(282, 4.45790863, -157, 1, 6.64652404e-08, -1.07617515e-13, -6.64652404e-08, 1, 7.81934428e-09, 1.08137234e-13, -7.81934428e-09, 1)
+	game:GetService("Workspace")[plr.Name.."'s Car"]:MoveTo(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+	task.wait()
+	game:GetService("Workspace")[plr.Name.."'s Car"].DriveSeat:sit(plr.Character.Humanoid)
+	task.wait()
+	game:GetService("ReplicatedStorage").DoorService:FireServer("HOP",workspace:FindFirstChild(plr.Name .. "'s Car"))
+end
+)
+
+Shops:NewButton("Tescos", "TP", function()
+	local plr = game.Players.LocalPlayer
+	local workspace = game.Workspace
+	plr.Character.HumanoidRootPart.CFrame = CFrame.new(983.751831, -446.635803, 103.678848, -0.381174803, -9.88733646e-08, -0.924502969, -2.49378118e-08, 1, -9.66656728e-08, 0.924502969, -1.37914373e-08, -0.381174803)
+	game:GetService("Workspace")[plr.Name.."'s Car"]:MoveTo(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+	task.wait()
+	game:GetService("Workspace")[plr.Name.."'s Car"].DriveSeat:sit(plr.Character.Humanoid)
+	task.wait()
+	game:GetService("ReplicatedStorage").DoorService:FireServer("HOP",workspace:FindFirstChild(plr.Name .. "'s Car"))
+end
+)
+
+Shops:NewButton("Barbers", "TP", function()
+		local plr = game.Players.LocalPlayer
+		local workspace = game.Workspace
+		plr.Character.HumanoidRootPart.CFrame = CFrame.new(-21, 4.40000916, 102, 1, -3.14583648e-09, -1.63019792e-14, 3.14583648e-09, 1, 4.40034809e-09, 1.62881369e-14, -4.40034809e-09, 1)
+		game:GetService("Workspace")[plr.Name.."'s Car"]:MoveTo(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+		task.wait()
+		game:GetService("Workspace")[plr.Name.."'s Car"].DriveSeat:sit(plr.Character.Humanoid)
+		task.wait()
+		game:GetService("ReplicatedStorage").DoorService:FireServer("HOP",workspace:FindFirstChild(plr.Name .. "'s Car"))
+	end
+	)
+
+Shops:NewButton("Hair Salon", "TP", function()	
+	local plr = game.Players.LocalPlayer
+	local workspace = game.Workspace
+	plr.Character.HumanoidRootPart.CFrame = CFrame.new(-21.0000038, 4.40000916, 120.000015, 1, 3.68644564e-08, -1.16391732e-13, -3.68644564e-08, 1, -5.15691454e-08, 1.14490665e-13, 5.15691454e-08, 1)
+	game:GetService("Workspace")[plr.Name.."'s Car"]:MoveTo(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+	task.wait()
+	game:GetService("Workspace")[plr.Name.."'s Car"].DriveSeat:sit(plr.Character.Humanoid)
+	task.wait()
+	game:GetService("ReplicatedStorage").DoorService:FireServer("HOP",workspace:FindFirstChild(plr.Name .. "'s Car"))
+end
+)
+
